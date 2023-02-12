@@ -4,3 +4,5 @@
 *.OBJ
 *.obj
 *.exe
+loops
+*.o
