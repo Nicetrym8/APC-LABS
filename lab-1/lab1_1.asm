@@ -58,7 +58,7 @@ read_error:
     add sp,4
 
     push 0
-    push "8"
+    push "3"
     call write
     add sp,4  
 
@@ -78,4 +78,4 @@ section data
     r_error_msg db "Read error occured", 13,10,'$'
 segment stack 
 		resb 256
-	stack_top:
+    
