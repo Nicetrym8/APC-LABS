@@ -1,5 +1,7 @@
 /*
 Ports 40h-43h, 43h - conrol port for timer
+
+43h:
 bits 7 – 6: if not 11 — channel number
 00,01,10 = channel 0,1,2
 bits 5 – 4:
@@ -14,7 +16,7 @@ bits 3 – 1: mode
 011: square wave 50%(main mode)
 100: software 1 pulse
 101: hardware 1 pulse
-бит 0: counter format:
+bit 0: counter format:
 0 — Binary 16bit
 1 - BCD
 
@@ -67,7 +69,6 @@ void get_state_of_timer();
 void char_to_binary(unsigned char state, char* str);
 void toggle_speaker();
 void setup_counter_param(int freq);
-void Menu();
 menu_struct menu[] = {
     {exit_program,"Exit"},
     {play_melody,"Play Melody"},
@@ -150,7 +151,7 @@ void setup_counter_param(int freq) {
     unsigned long prescaler;
     outp(0x43, 182); //10110110 c2; lsb,msb; mode PWM, fmt BIN16
     prescaler = (BASE_MAX_FREQ / freq);
-    outp(0x42, prescaler % 256); // lsb
+    outp(0x42, (char)prescaler); // lsb
     outp(0x42, (prescaler >> 8)); //msb
     printf("Channel 2 - 0x%X\n", prescaler);
     return;
@@ -181,5 +182,5 @@ void play_melody() {
         else
             delay(melody[i].delay);
     }
-    getc(stdin);
+    getchar();
 }
